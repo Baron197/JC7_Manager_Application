@@ -1,8 +1,18 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { Header } from 'react-native-elements';
+import { connect } from 'react-redux';
+import { getEmployeeList } from '../actions';
 
 class EmployeeList extends Component {
+    static navigationOptions = {
+        drawerLabel: 'Employee List',
+    };
+
+    componentDidMount() {
+        this.props.getEmployeeList();
+    }
+
     render() {
         return (
             <View>
@@ -21,4 +31,4 @@ class EmployeeList extends Component {
     }
 }
 
-export default EmployeeList;
+export default connect(null, { getEmployeeList })(EmployeeList);

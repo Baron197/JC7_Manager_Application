@@ -3,6 +3,10 @@ import { View, Text } from 'react-native';
 import { Header } from 'react-native-elements';
 
 class Profile extends Component {
+    static navigationOptions = {
+        drawerLabel: 'My Profile',
+    };
+
     render() {
         return (
             <View>
