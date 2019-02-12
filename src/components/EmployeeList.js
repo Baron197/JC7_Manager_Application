@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, FlatList } from 'react-native';
 import { Header } from 'react-native-elements';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { getEmployeeList } from '../actions';
+import EmployeeListItem from './EmployeeListItem';
 
 class EmployeeList extends Component {
     static navigationOptions = {
@@ -12,6 +13,10 @@ class EmployeeList extends Component {
 
     componentDidMount() {
         this.props.getEmployeeList();
+    }
+
+    renderRow = ({item}) => {
+        return <EmployeeListItem employee={item} navigation={this.props.navigation} />
     }
 
     render() {
@@ -26,7 +31,10 @@ class EmployeeList extends Component {
                         }}
                         centerComponent={{ text: 'List Employee', style: { color: '#fff' }}}
                 />
-                <Text>Ini Employee List</Text>
+                <FlatList
+                    data={this.props.employees}
+                    renderItem={this.renderRow}
+                />
             </View>
         );
     }
@@ -42,6 +50,7 @@ const mapStateToProps = (state) => {
     console.log(employees);
 
     return { employees };
+    //this.props = { ...this.props, ...returndarimapstatetoprops }
 };
 
 export default connect(mapStateToProps, { getEmployeeList })(EmployeeList);
