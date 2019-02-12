@@ -29,7 +29,6 @@ export const getEmployeeList = () => {
     return (dispatch) => {
         firebase.database().ref(`/users/${currentUser.uid}/employees`)
             .on('value', snapshot => {
-                console.log(snapshot.val())
                 dispatch({ type: EMPLOYEES_GETLIST_SUCCESS, payload: snapshot.val() });
             });
     };
