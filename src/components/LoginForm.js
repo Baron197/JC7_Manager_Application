@@ -56,13 +56,12 @@ class LoginForm extends Component {
         );
     }
 
-    render() {
-        return (
-            <View>
-                <Header
-                    centerComponent={{ text: 'Please Login', style: { color: '#fff' } }}
-                />
-                <Card>
+    renderFormLogin = () => {
+        if(this.props.checkedAuth === false) {
+            return <Spinner />
+        }
+
+        return ( <Card>
                     <CardSection>
                         <Input
                             label="Email"
@@ -85,6 +84,16 @@ class LoginForm extends Component {
                         {this.renderButton()}
                     </CardSection>
                 </Card>
+        );
+    }
+
+    render() {
+        return (
+            <View>
+                <Header
+                    centerComponent={{ text: 'Please Login', style: { color: '#fff' } }}
+                />
+                {this.renderFormLogin()}
             </View>
         );
     }
@@ -99,9 +108,9 @@ const styles = {
 };
 
 const mapStateToProps = (state) => {
-    const { email, password, error, loading, user } = state.auth;
+    const { email, password, error, loading, user, checkedAuth } = state.auth;
 
-    return { email, password, error, loading, user };
+    return { email, password, error, loading, user, checkedAuth };
 };
 
 export default connect(mapStateToProps, { emailChanged, passwordChanged, loginUser })(LoginForm);
