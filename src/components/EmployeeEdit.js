@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Alert } from 'react-native';
 import { Header } from 'react-native-elements';
 import { text } from 'react-native-communications';
-import { employeeUpdate, employeeSave, employeeDelete } from '../actions';
+import { connect } from 'react-redux';
+import { employeeSave, employeeDelete } from '../actions';
 import EmployeeForm from './EmployeeForm';
 import { Card, CardSection, Button } from './common';
 
@@ -82,4 +83,13 @@ class EmployeeEdit extends Component {
     }
 }
 
-export default EmployeeEdit;
+const mapStateToProps = (state) => {
+    const { name, phone, shift, uid } = state.employeeForm;
+
+    return { name, phone, shift, uid };
+};
+
+export default connect(
+    mapStateToProps, 
+    { employeeSave, employeeDelete }
+)(EmployeeEdit);
